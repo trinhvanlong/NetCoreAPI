@@ -1,5 +1,3 @@
-name: Deploy ASP.NET Core MVC
-
 name: Deploy .NET 10 MVC to MonsterASP.net
 
 on:
@@ -12,27 +10,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      # 1. Lấy source code từ GitHub
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1. Cài đặt .NET 10 SDK
+      # 2. Cài đặt .NET 10 SDK
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
-      # 2. Đóng gói ứng dụng
+      # 3. Restore NuGet packages
+      - name: Restore
+        run: dotnet restore DemoMVC/DemoMVC.csproj
+
+      # 4. Build project
+      - name: Build
+        run: dotnet build DemoMVC/DemoMVC.csproj -c Release --no-restore
+
+      # 5. Publish project
       - name: Publish project
-        run: dotnet publish **/*.csproj -c Release -o ./publish
+        run: dotnet publish DemoMVC/DemoMVC.csproj -c Release --no-build -o ./publish
 
-      # 3. TẮT SERVER: Tạo và upload app_offline.htm bằng curl (Không làm hỏng file sync state)
-      - name: ⛔ Stop Server (Upload app_offline.htm)
+      # 6. Tạo app_offline.htm để báo website đang cập nhật
+      - name: Stop Server
         run: |
-          echo "<html><body><h1>Updating...</h1></body></html>" > app_offline.htm
-          curl -s --ftp-pasv -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" -T app_offline.htm "ftp://${{ secrets.FTP_SERVER }}/wwwroot/app_offline.htm"
+          echo "<html><body><h1>Website đang cập nhật...</h1></body></html>" > app_offline.htm
+          curl -s --ftp-pasv \
+            -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
+            -T app_offline.htm \
+            "ftp://${{ secrets.FTP_SERVER }}/wwwroot/app_offline.htm"
 
-      # 4. DEPLOY CODE: Chỉ gọi FTP Action 1 lần duy nhất ở đây
-      - name: 🚀 Deploy App
+      # 7. Upload website lên MonsterASP
+      - name: Deploy App
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -46,8 +57,11 @@ jobs:
           exclude: |
             **/app_offline.htm
 
-      # 5. BẬT SERVER: Xóa file app_offline.htm bằng curl
-      - name: ▶️ Start Server (Delete app_offline.htm)
+      # 8. Xóa app_offline.htm để website hoạt động lại
+      - name: Start Server
         if: always()
         run: |
-          curl -s --ftp-pasv -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" "ftp://${{ secrets.FTP_SERVER }}/" -Q "-DELE /wwwroot/app_offline.htm" || true
+          curl -s --ftp-pasv \
+            -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
+            "ftp://${{ secrets.FTP_SERVER}/" \
+            -Q "-DELE /wwwroot/app_offline.htm" || true

@@ -1,0 +1,36 @@
+@model DemoMVC.Models.SinhVien
+
+<h1>ĐĂNG KÝ SINH VIÊN</h1>
+
+<p>@ViewBag.ThongBao</p>
+
+<p>Khoa: @ViewData["Khoa"]</p>
+
+<form asp-controller="SinhVien" asp-action="Index" method="post">
+
+    <p>
+        Họ tên:
+        <input type="text" name="HoTen" />
+    </p>
+    <p>
+        Email:
+        <input type="text" name="Email" />
+    </p>
+
+    <p>
+        Lớp:
+        <input type="text" name="Lop" />
+    </p>
+
+    <button type="submit">Đăng ký</button>
+
+</form>
+
+@if (Model != null)
+{
+    <h2>Thông tin sinh viên</h2>
+
+    <p>Họ tên: @Model.HoTen</p>
+    <p>Email: @Model.Email</p>
+    <p>Lớp: @Model.Lop</p>
+}

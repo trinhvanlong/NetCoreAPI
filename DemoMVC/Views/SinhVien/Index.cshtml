@@ -1,36 +1,58 @@
-@model DemoMVC.Models.SinhVien
+@model IEnumerable<DemoMVC.Models.SinhVien>
 
-<h1>ĐĂNG KÝ SINH VIÊN</h1>
-
-<p>@ViewBag.ThongBao</p>
-
-<p>Khoa: @ViewData["Khoa"]</p>
-
-<form asp-controller="SinhVien" asp-action="Index" method="post">
-
-    <p>
-        Họ tên:
-        <input type="text" name="HoTen" />
-    </p>
-    <p>
-        Email:
-        <input type="text" name="Email" />
-    </p>
-
-    <p>
-        Lớp:
-        <input type="text" name="Lop" />
-    </p>
-
-    <button type="submit">Đăng ký</button>
-
-</form>
-
-@if (Model != null)
-{
-    <h2>Thông tin sinh viên</h2>
-
-    <p>Họ tên: @Model.HoTen</p>
-    <p>Email: @Model.Email</p>
-    <p>Lớp: @Model.Lop</p>
+@{
+    ViewData["Title"] = "Danh sách sinh viên";
 }
+
+<h1>Danh sách sinh viên</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        + Thêm sinh viên
+    </a>
+</p>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+
+                <td>@item.HoTen</td>
+
+                <td>@item.Email</td>
+
+                <td>@item.SoDienThoai</td>
+
+                <td>
+                    <a asp-action="Edit"
+                       asp-route-id="@item.Id"
+                       class="btn btn-warning">
+                        Sửa
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.Id"
+                       class="btn btn-danger">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>

@@ -20,7 +20,7 @@
             <th>Họ tên</th>
             <th>Email</th>
             <th>Số điện thoại</th>
-            <th>Chức năng</th>
+            <th class="text-center">Chức năng</th>
         </tr>
     </thead>
 
@@ -29,7 +29,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Id</td>
+                <td>@(Model.ToList().IndexOf(item) + 1)</td>
 
                 <td>@item.HoTen</td>
 
@@ -37,7 +37,13 @@
 
                 <td>@item.SoDienThoai</td>
 
-                <td>
+                <td class="text-center">
+                    <a asp-action="Details"
+                       asp-route-id="@item.Id"
+                       class="btn btn-info">
+                        Xem
+                    </a>
+
                     <a asp-action="Edit"
                        asp-route-id="@item.Id"
                        class="btn btn-warning">

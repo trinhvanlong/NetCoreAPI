@@ -127,5 +127,23 @@ namespace DemoMVC.Controllers
         {
             return _context.SinhViens.Any(x => x.Id == id);
         }
+        public async Task<IActionResult> Details(int? id)
+{
+    if (id == null)
+    {
+        return NotFound();
     }
+
+    var data = await _context.SinhViens
+        .FirstOrDefaultAsync(m => m.Id == id);
+
+    if (data == null)
+    {
+        return NotFound();
+    }
+
+    return View(data);
+}
+    }
+    
 }

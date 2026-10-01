@@ -1,0 +1,6 @@
+@model DemoMVC.Models.NhanVien
+@{ ViewData["Title"] = "Xóa nhân viên"; }
+<h1>Xóa nhân viên</h1>
+<div class="alert alert-warning">Bạn có chắc muốn xóa nhân viên <strong>@Model.HoTen</strong> không?</div>
+<dl class="row"><dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Email</dd><dt class="col-sm-3">Phòng ban</dt><dd class="col-sm-9">@Model.PhongBan</dd><dt class="col-sm-3">Chức vụ</dt><dd class="col-sm-9">@Model.ChucVu</dd></dl>
+<form asp-action="Delete" method="post"><input type="hidden" asp-for="Id" /><button type="submit" class="btn btn-danger">Xác nhận xóa</button> <a asp-action="Index" class="btn btn-secondary">Hủy</a></form>

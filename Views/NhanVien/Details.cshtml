@@ -1,0 +1,13 @@
+@model DemoMVC.Models.NhanVien
+@{ ViewData["Title"] = "Chi tiết nhân viên"; }
+<h1>Chi tiết nhân viên</h1>
+<div class="card"><div class="card-body"><dl class="row">
+<dt class="col-sm-3">Họ tên</dt><dd class="col-sm-9">@Model.HoTen</dd>
+<dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Email</dd>
+<dt class="col-sm-3">Số điện thoại</dt><dd class="col-sm-9">@Model.SoDienThoai</dd>
+<dt class="col-sm-3">Phòng ban</dt><dd class="col-sm-9">@Model.PhongBan</dd>
+<dt class="col-sm-3">Chức vụ</dt><dd class="col-sm-9">@Model.ChucVu</dd>
+<dt class="col-sm-3">Lương</dt><dd class="col-sm-9">@Model.Luong.ToString("N0") đ</dd>
+<dt class="col-sm-3">Ngày vào làm</dt><dd class="col-sm-9">@Model.NgayVaoLam.ToString("dd/MM/yyyy")</dd>
+<dt class="col-sm-3">Trạng thái</dt><dd class="col-sm-9">@Model.TrangThai</dd>
+</dl><a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Sửa</a> <a asp-action="Index" class="btn btn-secondary">Quay lại</a></div></div>

@@ -1,0 +1,19 @@
+@model IEnumerable<DemoMVC.Models.NhanVien>
+@{ ViewData["Title"] = "Quản lý nhân viên"; }
+<h1>Quản lý nhân viên</h1>
+@if (TempData["Success"] != null) { <div class="alert alert-success">@TempData["Success"]</div> }
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form asp-action="Index" method="get" class="d-flex gap-2">
+        <input name="searchString" value="@ViewData["SearchString"]" class="form-control" placeholder="Tìm tên, email, phòng ban..." style="width:320px" />
+        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+        <a asp-action="Index" class="btn btn-secondary">Đặt lại</a>
+    </form>
+    <a asp-action="Create" class="btn btn-success">+ Thêm nhân viên</a>
+</div>
+<table class="table table-bordered table-striped align-middle">
+<thead><tr><th>ID</th><th>Họ tên</th><th>Email</th><th>Số điện thoại</th><th>Phòng ban</th><th>Chức vụ</th><th>Lương</th><th>Ngày vào làm</th><th>Trạng thái</th><th>Chức năng</th></tr></thead>
+<tbody>
+@foreach (var item in Model) {
+<tr><td>@item.Id</td><td>@item.HoTen</td><td>@item.Email</td><td>@item.SoDienThoai</td><td>@item.PhongBan</td><td>@item.ChucVu</td><td>@item.Luong.ToString("N0") đ</td><td>@item.NgayVaoLam.ToString("dd/MM/yyyy")</td><td><span class="badge @(item.TrangThai == "Đang làm việc" ? "bg-success" : "bg-secondary")">@item.TrangThai</span></td><td class="text-nowrap"><a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Xem</a> <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Sửa</a> <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Xóa</a></td></tr>
+}
+</tbody></table>

@@ -1,0 +1,59 @@
+@model DemoMVC.Models.SinhVien
+
+@{
+    ViewData["Title"] = "Thêm sinh viên";
+}
+
+<h1>Thêm sinh viên</h1>
+
+<form asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label asp-for="HoTen" class="form-label">
+            Họ tên
+        </label>
+
+        <input asp-for="HoTen"
+               class="form-control" />
+
+        <span asp-validation-for="HoTen"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">
+            Email
+        </label>
+
+        <input asp-for="Email"
+               class="form-control" />
+
+        <span asp-validation-for="Email"
+              class="text-danger">
+        </span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SoDienThoai" class="form-label">
+            Số điện thoại
+        </label>
+
+        <input asp-for="SoDienThoai"
+               class="form-control" />
+
+        <span asp-validation-for="SoDienThoai"
+              class="text-danger">
+        </span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Lưu
+    </button>
+
+    <a asp-action="Index"
+       class="btn btn-secondary">
+        Quay lại
+    </a>
+
+</form>

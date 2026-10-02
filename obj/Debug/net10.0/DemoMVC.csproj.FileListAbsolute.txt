@@ -349,3 +349,4 @@ C:\ASP.NET Core MVC\DemoMVC\bin\Debug\net10.0\tr\Microsoft.CodeAnalysis.Scriptin
 C:\ASP.NET Core MVC\DemoMVC\bin\Debug\net10.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\ASP.NET Core MVC\DemoMVC\bin\Debug\net10.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\ASP.NET Core MVC\DemoMVC\obj\Debug\net10.0\compressed\3xqpwvxjmo-{0}-qd4ewi1713-qd4ewi1713.gz
+C:\ASP.NET Core MVC\DemoMVC\obj\Debug\net10.0\DemoMVC.sourcelink.json

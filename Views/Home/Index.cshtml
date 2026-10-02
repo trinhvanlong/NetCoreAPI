@@ -1,8 +1,307 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Xin Chào</h1>
-    <p>Welcome to the C# code page for the Software Engineering and Management course. <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="dashboard">
+
+    <!-- HERO -->
+    <section class="hero-section">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-7">
+
+                    <div class="hero-badge">
+                        <i class="bi bi-stars me-2"></i>
+                        HỆ THỐNG QUẢN LÝ
+                    </div>
+
+                    <h1 class="hero-title">
+                        Xin chào! 👋
+                        <br />
+                        Chào mừng đến với
+                        <span>DemoMVC</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Hệ thống quản lý dữ liệu được xây dựng bằng
+                        ASP.NET Core MVC và Entity Framework Core.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a asp-controller="SinhVien"
+                           asp-action="Index"
+                           class="btn btn-main">
+                            <i class="bi bi-mortarboard me-2"></i>
+                            Quản lý sinh viên
+                        </a>
+
+                        <a asp-controller="NhanVien"
+                           asp-action="Index"
+                           class="btn btn-outline-main">
+                            <i class="bi bi-people me-2"></i>
+                            Quản lý nhân viên
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 text-center">
+
+                    <div class="hero-icon-box">
+
+                        <div class="floating-icon icon-1">
+                            <i class="bi bi-database"></i>
+                        </div>
+
+                        <div class="floating-icon icon-2">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <div class="floating-icon icon-3">
+                            <i class="bi bi-bar-chart"></i>
+                        </div>
+
+                        <div class="main-dashboard-icon">
+                            <i class="bi bi-grid-1x2-fill"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="container statistics-section">
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+
+                    <div>
+                        <div class="stat-number">
+                            Sinh viên
+                        </div>
+
+                        <div class="stat-text">
+                            Quản lý thông tin sinh viên
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-person-badge-fill"></i>
+                    </div>
+
+                    <div>
+                        <div class="stat-number">
+                            Nhân viên
+                        </div>
+
+                        <div class="stat-text">
+                            Quản lý thông tin nhân viên
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        <i class="bi bi-database-fill-check"></i>
+                    </div>
+
+                    <div>
+                        <div class="stat-number">
+                            SQL Server
+                        </div>
+
+                        <div class="stat-text">
+                            Lưu trữ dữ liệu an toàn
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="container features-section">
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                CHỨC NĂNG
+            </span>
+
+            <h2>
+                Quản lý hệ thống
+            </h2>
+
+            <p>
+                Truy cập nhanh đến các chức năng chính của hệ thống.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- SINH VIEN -->
+            <div class="col-lg-6">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon student-icon">
+                        <i class="bi bi-mortarboard-fill"></i>
+                    </div>
+
+                    <div class="feature-content">
+
+                        <h3>
+                            Quản lý sinh viên
+                        </h3>
+
+                        <p>
+                            Quản lý danh sách sinh viên với các chức năng
+                            thêm, sửa, xóa và xem thông tin chi tiết.
+                        </p>
+
+                        <a asp-controller="SinhVien"
+                           asp-action="Index"
+                           class="feature-link">
+                            Xem danh sách
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NHAN VIEN -->
+            <div class="col-lg-6">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon employee-icon">
+                        <i class="bi bi-person-badge-fill"></i>
+                    </div>
+
+                    <div class="feature-content">
+
+                        <h3>
+                            Quản lý nhân viên
+                        </h3>
+
+                        <p>
+                            Quản lý thông tin nhân viên, phòng ban,
+                            chức vụ và các dữ liệu liên quan.
+                        </p>
+
+                        <a asp-controller="NhanVien"
+                           asp-action="Index"
+                           class="feature-link">
+                            Xem danh sách
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TECHNOLOGY -->
+    <section class="container technology-section">
+
+        <div class="technology-box">
+
+            <div class="technology-content">
+
+                <span class="section-label">
+                    CÔNG NGHỆ
+                </span>
+
+                <h2>
+                    Xây dựng trên nền tảng hiện đại
+                </h2>
+
+                <p>
+                    DemoMVC sử dụng ASP.NET Core MVC kết hợp
+                    Entity Framework Core và SQL Server.
+                </p>
+
+            </div>
+
+
+            <div class="technology-list">
+
+                <div class="technology-item">
+                    <i class="bi bi-code-slash"></i>
+                    <span>ASP.NET Core</span>
+                </div>
+
+                <div class="technology-item">
+                    <i class="bi bi-database"></i>
+                    <span>Entity Framework</span>
+                </div>
+
+                <div class="technology-item">
+                    <i class="bi bi-server"></i>
+                    <span>SQL Server</span>
+                </div>
+
+                <div class="technology-item">
+                    <i class="bi bi-bootstrap"></i>
+                    <span>Bootstrap</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
 </div>

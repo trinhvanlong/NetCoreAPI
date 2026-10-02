@@ -19,13 +19,13 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore DemoMVC/DemoMVC.csproj
+        run: dotnet restore DemoMVC.csproj
 
       - name: Build
-        run: dotnet build DemoMVC/DemoMVC.csproj -c Release --no-restore
+        run: dotnet build DemoMVC.csproj -c Release --no-restore
 
       - name: Publish
-        run: dotnet publish DemoMVC/DemoMVC.csproj -c Release --output ./publish --runtime win-x86
+        run: dotnet publish DemoMVC.csproj -c Release --output ./publish --runtime win-x86
 
       - name: Deploy to MonsterASP
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0

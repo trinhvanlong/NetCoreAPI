@@ -1,52 +1,95 @@
+
 @model DemoMVC.Models.SinhVien
 
 @{
     ViewData["Title"] = "Chi tiết sinh viên";
 }
 
-<h1>Chi tiết sinh viên</h1>
-
-<div class="card">
-    <div class="card-body">
-
-        <h4>Thông tin sinh viên</h4>
-
-        <hr />
-
-        <dl class="row">
-            <dt class="col-sm-3">
-                Họ tên
-            </dt>
-            <dd class="col-sm-9">
-                @Model.HoTen
-            </dd>
-
-            <dt class="col-sm-3">
-                Email
-            </dt>
-            <dd class="col-sm-9">
-                @Model.Email
-            </dd>
-
-            <dt class="col-sm-3">
-                Số điện thoại
-            </dt>
-            <dd class="col-sm-9">
-                @Model.SoDienThoai
-            </dd>
-
-        </dl>
-
-        <a asp-action="Edit"
-           asp-route-id="@Model.Id"
-           class="btn btn-warning">
-            Sửa
+<div class="container mt-4 mb-5">
+    <div class="mb-4">
+        <a asp-action="Index" class="text-decoration-none">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách
         </a>
+        <h2 class="text-primary fw-bold mt-3">Chi tiết sinh viên</h2>
+    </div>
 
-        <a asp-action="Index"
-           class="btn btn-secondary">
-            Quay lại
-        </a>
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-primary text-white py-3">
+            <h5 class="mb-0">
+                <i class="bi bi-person-vcard"></i>
+                Hồ sơ sinh viên
+            </h5>
+        </div>
 
+        <div class="card-body p-4">
+            <div class="text-center mb-4">
+                <div class="rounded-circle bg-primary bg-opacity-10
+                            text-primary d-inline-flex align-items-center
+                            justify-content-center mb-3"
+                     style="width:80px;height:80px">
+                    <i class="bi bi-person-fill fs-1"></i>
+                </div>
+                <h4 class="fw-bold">@Model.HoTen</h4>
+                <span class="badge bg-primary">
+                    @Model.MaSinhVien
+                </span>
+            </div>
+
+            <dl class="row mb-0">
+                <dt class="col-md-4 border-bottom py-3">ID</dt>
+                <dd class="col-md-8 border-bottom py-3">@Model.Id</dd>
+
+                <dt class="col-md-4 border-bottom py-3">Mã sinh viên</dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @Model.MaSinhVien
+                </dd>
+
+                <dt class="col-md-4 border-bottom py-3">Họ và tên</dt>
+                <dd class="col-md-8 border-bottom py-3">@Model.HoTen</dd>
+
+                <dt class="col-md-4 border-bottom py-3">Email</dt>
+                <dd class="col-md-8 border-bottom py-3">@Model.Email</dd>
+
+                <dt class="col-md-4 border-bottom py-3">Số điện thoại</dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @Model.SoDienThoai
+                </dd>
+
+                <dt class="col-md-4 border-bottom py-3">Năm nhập học</dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @Model.NamNhapHoc
+                </dd>
+
+                <dt class="col-md-4 border-bottom py-3">Hệ đào tạo</dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @Model.MaHeDaoTao
+                    @(Model.MaHeDaoTao == "21"
+                        ? "- Đại học chính quy" : "")
+                </dd>
+
+                <dt class="col-md-4 border-bottom py-3">Mã ngành</dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @Model.MaNganh
+                    @(Model.MaNganh == "05"
+                        ? "- Công nghệ thông tin" : "")
+                </dd>
+
+                <dt class="col-md-4 py-3">Khoa</dt>
+                <dd class="col-md-8 py-3">
+                    @(Model.Khoa?.TenKhoa ?? "Chưa xác định")
+                </dd>
+            </dl>
+
+            <div class="d-flex gap-2 mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-primary">
+                    <i class="bi bi-pencil-square"></i> Sửa thông tin
+                </a>
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary">
+                    Quay lại
+                </a>
+            </div>
+        </div>
     </div>
 </div>

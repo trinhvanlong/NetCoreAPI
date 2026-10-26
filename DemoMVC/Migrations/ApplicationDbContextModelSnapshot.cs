@@ -21,6 +21,94 @@ namespace DemoMVC.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DemoMVC.Models.Khoa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("MaKhoa")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TenKhoa")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaKhoa")
+                        .IsUnique();
+
+                    b.ToTable("Khoas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MaKhoa = "CNTT",
+                            TenKhoa = "Công nghệ thông tin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MaKhoa = "MO",
+                            TenKhoa = "Mỏ"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MaKhoa = "CODIEN",
+                            TenKhoa = "Cơ điện"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MaKhoa = "KINHTE",
+                            TenKhoa = "Kinh tế và Quản trị kinh doanh"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            MaKhoa = "MOITRUONG",
+                            TenKhoa = "Môi trường"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            MaKhoa = "XAYDUNG",
+                            TenKhoa = "Xây dựng"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            MaKhoa = "DAUKHI",
+                            TenKhoa = "Dầu khí"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            MaKhoa = "DIACHAT",
+                            TenKhoa = "Khoa học và Kỹ thuật Địa chất"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            MaKhoa = "TRACDIA",
+                            TenKhoa = "Trắc địa - Bản đồ và Quản lý đất đai"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            MaKhoa = "KHCB",
+                            TenKhoa = "Khoa học cơ bản"
+                        });
+                });
+
             modelBuilder.Entity("DemoMVC.Models.SinhVien", b =>
                 {
                     b.Property<int>("Id")
@@ -31,19 +119,62 @@ namespace DemoMVC.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("HoTen")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("SoDienThoai")
+                    b.Property<int>("KhoaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaHeDaoTao")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MaNganh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaSinhVien")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("NamNhapHoc")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoDienThoai")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("KhoaId");
+
+                    b.HasIndex("MaSinhVien")
+                        .IsUnique();
+
                     b.ToTable("SinhViens");
+                });
+
+            modelBuilder.Entity("DemoMVC.Models.SinhVien", b =>
+                {
+                    b.HasOne("DemoMVC.Models.Khoa", "Khoa")
+                        .WithMany("SinhViens")
+                        .HasForeignKey("KhoaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Khoa");
+                });
+
+            modelBuilder.Entity("DemoMVC.Models.Khoa", b =>
+                {
+                    b.Navigation("SinhViens");
                 });
 #pragma warning restore 612, 618
         }

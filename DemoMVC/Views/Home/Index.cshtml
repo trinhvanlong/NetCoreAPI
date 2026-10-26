@@ -1,8 +1,89 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿
+@{
+    ViewData["Title"] = "Trang chủ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Xin Chào</h1>
-    <p>Welcome to the C# code page for the Software Engineering and Management course. <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero-section">
+    <div class="hero-orbit orbit-one"></div>
+    <div class="hero-orbit orbit-two"></div>
+
+    <div class="container hero-container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7 hero-copy">
+                <div class="hero-badge">
+                    <span>✦</span> HỆ THỐNG QUẢN LÝ
+                </div>
+
+                <h1 class="hero-title">
+                    Xin chào! <span class="wave">👋</span><br />
+                    Chào mừng đến với<br />
+                    <span class="gradient-text">DemoMVC</span>
+                </h1>
+
+                <p class="hero-description">
+                    Hệ thống quản lý dữ liệu được xây dựng bằng
+                    ASP.NET Core MVC và Entity Framework Core.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="hero-button hero-button-primary"
+                       asp-controller="SinhViens" asp-action="Index">
+                        <span>🎓</span> Quản lý sinh viên
+                    </a>
+
+                    <a class="hero-button hero-button-secondary"
+                       asp-controller="NhanViens" asp-action="Index">
+                        <span>♧</span> Quản lý nhân viên
+                    </a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-icon">▤</span>
+                        <div>
+                            <strong>Quản lý dữ liệu</strong>
+                            <small>Lưu trữ tập trung</small>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">♧</span>
+                        <div>
+                            <strong>Quản lý hồ sơ</strong>
+                            <small>Tra cứu thuận tiện</small>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">▥</span>
+                        <div>
+                            <strong>Hệ thống MVC</strong>
+                            <small>ASP.NET Core</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="hero-visual">
+                    <div class="floating-card float-database">
+                        <span>▤</span>
+                    </div>
+                    <div class="floating-card float-users">
+                        <span>♧</span>
+                    </div>
+                    <div class="floating-card float-chart">
+                        <span>▥</span>
+                    </div>
+
+                    <div class="hero-logo-card">
+                        <div class="hero-logo-symbol">◧</div>
+                    </div>
+
+                    <div class="visual-caption">
+                        <span class="status-dot"></span>
+                        <span>HỆ THỐNG QUẢN LÝ DEMOMVC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,52 +1,75 @@
+
 @model DemoMVC.Models.SinhVien
 
 @{
     ViewData["Title"] = "Xóa sinh viên";
 }
 
-<h1>Xóa sinh viên</h1>
+<div class="container mt-4 mb-5">
+    <div class="mb-4">
+        <a asp-action="Index" class="text-decoration-none">
+            <i class="bi bi-arrow-left"></i> Quay lại danh sách
+        </a>
+        <h2 class="text-danger fw-bold mt-3">Xóa sinh viên</h2>
+    </div>
 
-<h3>Bạn có chắc muốn xóa sinh viên này?</h3>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                Bạn có chắc chắn muốn xóa sinh viên này không?
+                Thao tác này không thể hoàn tác.
+            </div>
 
-<div class="card p-3">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="rounded-circle bg-danger bg-opacity-10
+                            text-danger d-flex align-items-center
+                            justify-content-center"
+                     style="width:64px;height:64px">
+                    <i class="bi bi-person-x fs-2"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1">@Model.HoTen</h5>
+                    <span class="badge bg-secondary">
+                        @Model.MaSinhVien
+                    </span>
+                </div>
+            </div>
 
-    <p>
-        <strong>ID:</strong>
-        @Model.Id
-    </p>
+            <dl class="row">
+                <dt class="col-md-4 border-bottom py-3">Email</dt>
+                <dd class="col-md-8 border-bottom py-3">@Model.Email</dd>
 
-    <p>
-        <strong>Họ tên:</strong>
-        @Model.HoTen
-    </p>
+                <dt class="col-md-4 border-bottom py-3">
+                    Số điện thoại
+                </dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @Model.SoDienThoai
+                </dd>
 
-    <p>
-        <strong>Email:</strong>
-        @Model.Email
-    </p>
+                <dt class="col-md-4 border-bottom py-3">Khoa</dt>
+                <dd class="col-md-8 border-bottom py-3">
+                    @(Model.Khoa?.TenKhoa ?? "Chưa xác định")
+                </dd>
 
-    <p>
-        <strong>Số điện thoại:</strong>
-        @Model.SoDienThoai
-    </p>
+                <dt class="col-md-4 py-3">Năm nhập học</dt>
+                <dd class="col-md-8 py-3">@Model.NamNhapHoc</dd>
+            </dl>
 
+            <form asp-action="Delete" asp-route-id="@Model.Id"
+                  method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="btn btn-danger px-4">
+                    <i class="bi bi-trash"></i> Xác nhận xóa
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary px-4">
+                    Hủy
+                </a>
+            </form>
+        </div>
+    </div>
 </div>
-
-<form asp-action="Delete"
-      method="post"
-      class="mt-3">
-
-    <input type="hidden"
-           asp-for="Id" />
-
-    <button type="submit"
-            class="btn btn-danger">
-        Xác nhận xóa
-    </button>
-
-    <a asp-action="Index"
-       class="btn btn-secondary">
-        Hủy
-    </a>
-
-</form>

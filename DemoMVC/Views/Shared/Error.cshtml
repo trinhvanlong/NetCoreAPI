@@ -1,0 +1,17 @@
+﻿@model DemoMVC.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Đã xảy ra lỗi";
+}
+
+<div class="container crud-page error-page">
+    <div class="page-intro">
+        <span class="page-eyebrow">CÓ SỰ CỐ</span>
+        <h2>Không thể xử lý yêu cầu</h2>
+        <p>Đã xảy ra lỗi trong quá trình xử lý. Vui lòng thử lại sau.</p>
+        @if (Model.ShowRequestId)
+        {
+            <p class="error-request-id">Mã yêu cầu: <code>@Model.RequestId</code></p>
+        }
+        <a class="btn btn-primary mt-3" asp-controller="Home" asp-action="Index">Quay về trang chủ</a>
+    </div>
+</div>

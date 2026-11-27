@@ -1,0 +1,2 @@
+@{ ViewData["Title"] = "Kiểm tra email"; }
+<div class="container crud-page text-center"><h2>Kiểm tra email</h2><p>@(TempData["ThongBao"] ?? "Hãy mở liên kết trong email để xác thực tài khoản.")</p><a asp-action="ResendConfirmation" class="btn btn-outline-primary">Gửi lại email xác thực</a></div>

@@ -1,0 +1,18 @@
+@model DemoMVC.Models.NhanVien
+
+<div class="modal-header">
+    <h5 class="modal-title" id="crudModalTitle">Chi tiết nhân viên</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+</div>
+<div class="modal-body">
+    <dl class="row mb-0">
+        <dt class="col-sm-4">Mã nhân viên</dt><dd class="col-sm-8">@Model.MaNhanVien</dd>
+        <dt class="col-sm-4">Họ và tên</dt><dd class="col-sm-8">@Model.HoTen</dd>
+        <dt class="col-sm-4">Email</dt><dd class="col-sm-8">@Model.Email</dd>
+        <dt class="col-sm-4">Số điện thoại</dt><dd class="col-sm-8">@Model.SoDienThoai</dd>
+        <dt class="col-sm-4">Phòng ban</dt><dd class="col-sm-8">@Model.PhongBan</dd>
+    </dl>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+</div>

@@ -1,0 +1,61 @@
+name: Deploy .NET 10 MVC to MonsterASP
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ==========================================
+      # 1. CHECKOUT SOURCE CODE
+      # ==========================================
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      # ==========================================
+      # 2. SETUP .NET 10
+      # ==========================================
+      - name: Setup .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # ==========================================
+      # 3. RESTORE NUGET PACKAGES
+      # ==========================================
+      - name: Restore NuGet packages
+        run: dotnet restore DemoMVC/DemoMVC.csproj
+
+      # ==========================================
+      # 4. BUILD PROJECT
+      # ==========================================
+      - name: Build project
+        run: dotnet build DemoMVC/DemoMVC.csproj --configuration Release --no-restore
+
+      # ==========================================
+      # 5. PUBLISH PROJECT
+      # ==========================================
+      - name: Publish project
+        run: dotnet publish DemoMVC/DemoMVC.csproj --configuration Release --output ./publish --no-restore
+
+      # ==========================================
+      # 6. DEPLOY TO MONSTERASP VIA FTP
+      # ==========================================
+      - name: Deploy to MonsterASP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./publish/
+          server-dir: /wwwroot/
+          security: loose

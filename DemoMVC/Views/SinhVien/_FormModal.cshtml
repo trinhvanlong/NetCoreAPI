@@ -1,0 +1,107 @@
+@model DemoMVC.Models.SinhVien
+@{
+    var actionName = (string)ViewData["FormAction"]!;
+    var isEdit = actionName == "Edit";
+}
+
+<form asp-controller="SinhVien"
+      asp-action="@actionName"
+      asp-route-id="@(isEdit ? Model.Id : null)"
+      method="post"
+      data-crud-form>
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <h5 class="modal-title" id="crudModalTitle">@ViewData["FormTitle"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+    </div>
+    <div class="modal-body">
+        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+        @if (isEdit)
+        {
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="MaSinhVien" class="form-label fw-semibold"></label>
+                <input asp-for="MaSinhVien" class="form-control" readonly />
+            </div>
+        }
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="HoTen" class="form-label fw-semibold"></label>
+                <input asp-for="HoTen" class="form-control" autocomplete="name" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label fw-semibold"></label>
+                <input asp-for="Email" type="email" class="form-control" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="SoDienThoai" class="form-label fw-semibold"></label>
+                <input asp-for="SoDienThoai" type="tel" class="form-control" autocomplete="tel" />
+                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="KhoaId" class="form-label fw-semibold"></label>
+                <select asp-for="KhoaId" asp-items="ViewBag.KhoaId" class="form-select">
+                    <option value="0">-- Chọn khoa --</option>
+                </select>
+                <span asp-validation-for="KhoaId" class="text-danger"></span>
+            </div>
+            @if (isEdit)
+            {
+                <div class="col-md-4">
+                    <label asp-for="NamNhapHoc" class="form-label fw-semibold"></label>
+                    <input asp-for="NamNhapHoc" class="form-control" readonly />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MaHeDaoTao" class="form-label fw-semibold"></label>
+                    <input asp-for="MaHeDaoTao" class="form-control" readonly />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MaNganh" class="form-label fw-semibold"></label>
+                    <input asp-for="MaNganh" class="form-control" readonly />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-4">
+                    <label asp-for="NamNhapHoc" class="form-label fw-semibold"></label>
+                    <input asp-for="NamNhapHoc" type="number" min="2000" max="2099" class="form-control" />
+                    <span asp-validation-for="NamNhapHoc" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MaHeDaoTao" class="form-label fw-semibold"></label>
+                    <select asp-for="MaHeDaoTao" class="form-select">
+                        <option value="21">21 - Đại học chính quy</option>
+                        <option value="22">22 - Hệ đào tạo khác</option>
+                    </select>
+                    <span asp-validation-for="MaHeDaoTao" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="MaNganh" class="form-label fw-semibold"></label>
+                    <select asp-for="MaNganh" class="form-select">
+                        <option value="05">05 - Công nghệ thông tin</option>
+                        <option value="06">06 - Kỹ thuật phần mềm</option>
+                        <option value="07">07 - Hệ thống thông tin</option>
+                        <option value="08">08 - Khoa học dữ liệu</option>
+                        <option value="09">09 - An toàn thông tin</option>
+                    </select>
+                    <span asp-validation-for="MaNganh" class="text-danger"></span>
+                </div>
+            }
+        </div>
+        @if (!isEdit)
+        {
+            <div class="alert alert-info mt-4 mb-0">
+                Mã sinh viên được hệ thống tự động tạo khi lưu.
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+            <span class="submit-label">@(isEdit ? "Lưu thay đổi" : "Lưu sinh viên")</span>
+        </button>
+    </div>
+</form>

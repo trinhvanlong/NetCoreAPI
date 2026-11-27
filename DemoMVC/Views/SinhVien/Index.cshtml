@@ -1,0 +1,75 @@
+@model IEnumerable<DemoMVC.Models.SinhVien>
+@{
+    ViewData["Title"] = "Quản lý sinh viên";
+}
+
+<div class="container crud-page" data-crud-root data-create-url="@Url.Action("Create")">
+    @if (TempData["ThongBao"] is string notification)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="status">
+            @notification
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+        </div>
+    }
+
+    <div class="page-toolbar">
+        <div class="page-intro">
+            <span class="page-eyebrow">QUẢN LÝ ĐÀO TẠO</span>
+            <h2>Quản lý sinh viên</h2>
+            <p>Danh sách hồ sơ sinh viên Đại học Mỏ - Địa chất.</p>
+        </div>
+        <button type="button" class="btn btn-primary px-3 py-2"
+                data-crud-url="@Url.Action("Create")">
+            <i class="bi bi-plus-circle" aria-hidden="true"></i> Thêm sinh viên
+        </button>
+    </div>
+
+    <div class="list-summary">
+        <div class="list-summary-icon"><svg class="icon"><use href="#icon-student"></use></svg></div>
+        <div><span>Tổng số sinh viên</span><strong>@ViewBag.TotalItems</strong></div>
+    </div>
+
+    <section class="card filter-card" aria-label="Tìm kiếm sinh viên">
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="row g-3 align-items-end">
+                <div class="col-md-5">
+                    <label class="form-label fw-semibold" for="search">Từ khóa</label>
+                    <input id="search" name="search" value="@ViewBag.Search" class="form-control"
+                           placeholder="Mã, họ tên, email hoặc số điện thoại" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold" for="khoaId">Khoa</label>
+                    <select id="khoaId" name="khoaId" asp-items="ViewBag.KhoaId" class="form-select">
+                        <option value="0">Tất cả khoa</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary flex-grow-1">
+                        <i class="bi bi-search" aria-hidden="true"></i> Tìm kiếm
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary" title="Xóa bộ lọc" aria-label="Xóa bộ lọc">
+                        <i class="bi bi-x-lg" aria-hidden="true"></i><span class="filter-reset-label">Xóa</span>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <div id="crud-list">
+        @await Html.PartialAsync("_ListPartial", Model)
+    </div>
+
+    <div class="modal fade" id="crudModal" tabindex="-1" aria-hidden="true"
+         aria-labelledby="crudModalTitle">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content" id="crudModalContent"></div>
+        </div>
+    </div>
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="crudToastContainer"
+         aria-live="polite" aria-atomic="true"></div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    <script src="~/js/crud-modal.js" asp-append-version="true"></script>
+}

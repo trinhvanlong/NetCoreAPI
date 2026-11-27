@@ -1,0 +1,64 @@
+@model DemoMVC.Models.NhanVien
+@{
+    var actionName = (string)ViewData["FormAction"]!;
+    var isEdit = actionName == "Edit";
+}
+
+<form asp-controller="NhanVien"
+      asp-action="@actionName"
+      asp-route-id="@(isEdit ? Model.Id : null)"
+      method="post"
+      data-crud-form>
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <h5 class="modal-title" id="crudModalTitle">@ViewData["FormTitle"]</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+    </div>
+    <div class="modal-body">
+        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+        @if (isEdit)
+        {
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="MaNhanVien" class="form-label fw-semibold"></label>
+                <input asp-for="MaNhanVien" class="form-control" readonly />
+                <div class="form-text">Mã nhân viên do hệ thống cấp, không thể thay đổi.</div>
+            </div>
+        }
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="HoTen" class="form-label fw-semibold"></label>
+                <input asp-for="HoTen" class="form-control" autocomplete="name" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label fw-semibold"></label>
+                <input asp-for="Email" type="email" class="form-control" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="SoDienThoai" class="form-label fw-semibold"></label>
+                <input asp-for="SoDienThoai" type="tel" class="form-control" autocomplete="tel" />
+                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="PhongBan" class="form-label fw-semibold"></label>
+                <input asp-for="PhongBan" class="form-control" />
+                <span asp-validation-for="PhongBan" class="text-danger"></span>
+            </div>
+        </div>
+        @if (!isEdit)
+        {
+            <div class="alert alert-info mt-4 mb-0">
+                Mã nhân viên sẽ được hệ thống tự động tạo khi lưu.
+            </div>
+        }
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Đóng</button>
+        <button type="submit" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+            <span class="submit-label">@(isEdit ? "Lưu thay đổi" : "Lưu nhân viên")</span>
+        </button>
+    </div>
+</form>

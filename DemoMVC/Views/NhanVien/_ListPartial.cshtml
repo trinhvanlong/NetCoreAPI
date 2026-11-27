@@ -1,0 +1,93 @@
+@model IEnumerable<DemoMVC.Models.NhanVien>
+@{
+    var employees = Model?.ToList() ?? new List<DemoMVC.Models.NhanVien>();
+    var currentPage = (int)ViewBag.Page;
+    var totalPages = (int)ViewBag.TotalPages;
+    var firstRow = (currentPage - 1) * (int)ViewBag.PageSize;
+}
+
+<section class="card list-card" aria-label="Danh sách nhân viên" data-total-items="@ViewBag.TotalItems">
+    <div class="card-header list-card-header">
+        <div>
+            <h3>Danh sách nhân viên</h3>
+            <span>@ViewBag.TotalItems hồ sơ</span>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th>Mã nhân viên</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Phòng ban</th>
+                    <th class="text-center">Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (employees.Count == 0)
+                {
+                    <tr><td colspan="7" class="empty-state">Chưa có dữ liệu nhân viên phù hợp.</td></tr>
+                }
+                else
+                {
+                    @for (var index = 0; index < employees.Count; index++)
+                    {
+                        var employee = employees[index];
+                        <tr>
+                            <td class="text-center text-secondary">@(firstRow + index + 1)</td>
+                            <td><span class="badge bg-light text-primary border">@employee.MaNhanVien</span></td>
+                            <td class="fw-semibold">@employee.HoTen</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.SoDienThoai</td>
+                            <td>@employee.PhongBan</td>
+                            <td class="text-center">
+                                <div class="row-actions">
+                                    <button type="button" class="btn btn-sm btn-outline-info"
+                                            data-crud-url="@Url.Action("Details", new { id = employee.Id })">
+                                        <i class="bi bi-eye" aria-hidden="true"></i> Xem
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                            data-crud-url="@Url.Action("Edit", new { id = employee.Id })">
+                                        <i class="bi bi-pencil" aria-hidden="true"></i> Sửa
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger"
+                                            data-crud-url="@Url.Action("Delete", new { id = employee.Id })">
+                                        <i class="bi bi-trash" aria-hidden="true"></i> Xóa
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer list-card-footer">
+        <span>Hiển thị @employees.Count trong tổng số @ViewBag.TotalItems nhân viên</span>
+        @if (totalPages > 1)
+        {
+            <nav aria-label="Phân trang nhân viên">
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-search="@ViewBag.Search"
+                           asp-route-page="@(currentPage - 1)">Trước</a>
+                    </li>
+                    @for (var pageNumber = 1; pageNumber <= totalPages; pageNumber++)
+                    {
+                        <li class="page-item @(pageNumber == currentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-search="@ViewBag.Search"
+                               asp-route-page="@pageNumber">@pageNumber</a>
+                        </li>
+                    }
+                    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-search="@ViewBag.Search"
+                           asp-route-page="@(currentPage + 1)">Sau</a>
+                    </li>
+                </ul>
+            </nav>
+        }
+    </div>
+</section>

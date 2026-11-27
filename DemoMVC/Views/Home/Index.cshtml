@@ -1,0 +1,142 @@
+﻿@model DemoMVC.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<div class="dashboard-page">
+    <section class="welcome-banner">
+        <div class="welcome-content">
+            <span class="welcome-eyebrow">TỔNG QUAN HỆ THỐNG</span>
+            <h2>Xin chào!<br />Chào mừng đến với <span>DemoMVC</span></h2>
+            <p>
+                Quản lý hồ sơ sinh viên và nhân viên trong một không gian làm việc
+                tập trung, rõ ràng và dễ sử dụng.
+            </p>
+            <a class="welcome-action" asp-controller="SinhVien" asp-action="Index">
+                Bắt đầu sử dụng
+                <svg class="icon"><use href="#icon-chevron"></use></svg>
+            </a>
+        </div>
+        <div class="welcome-art" aria-hidden="true">
+            <div class="art-orbit orbit-a"></div>
+            <div class="art-orbit orbit-b"></div>
+            <div class="art-panel">
+                <svg class="art-main-icon"><use href="#icon-dashboard"></use></svg>
+                <span>Workspace</span>
+                <strong>DemoMVC</strong>
+                <div class="art-panel-lines"><i></i><i></i><i></i></div>
+            </div>
+            <span class="art-chip chip-student">
+                <svg class="icon"><use href="#icon-student"></use></svg>
+            </span>
+            <span class="art-chip chip-users">
+                <svg class="icon"><use href="#icon-users"></use></svg>
+            </span>
+        </div>
+        <span class="banner-decoration banner-decoration-one"></span>
+        <span class="banner-decoration banner-decoration-two"></span>
+    </section>
+
+    <section class="dashboard-section" aria-labelledby="summaryTitle">
+        <div class="section-heading">
+            <div>
+                <span class="section-eyebrow">DỮ LIỆU</span>
+                <h2 id="summaryTitle">Tổng quan</h2>
+            </div>
+            <span class="section-caption">Số liệu hiện tại từ cơ sở dữ liệu</span>
+        </div>
+
+        <div class="summary-grid">
+            <a class="summary-card" asp-controller="SinhVien" asp-action="Index">
+                <span class="summary-icon summary-icon-blue">
+                    <svg class="icon"><use href="#icon-student"></use></svg>
+                </span>
+                <span class="summary-copy">
+                    <span>Tổng số sinh viên</span>
+                    <strong>@(Model.TotalStudents?.ToString("N0") ?? "—")</strong>
+                    <small>
+                        @if (Model.IsDatabaseAvailable)
+                        {
+                            <span>Xem danh sách <span aria-hidden="true">→</span></span>
+                        }
+                        else
+                        {
+                            @Model.DataSourceMessage
+                        }
+                    </small>
+                </span>
+            </a>
+            <a class="summary-card" asp-controller="NhanVien" asp-action="Index">
+                <span class="summary-icon summary-icon-violet">
+                    <svg class="icon"><use href="#icon-users"></use></svg>
+                </span>
+                <span class="summary-copy">
+                    <span>Tổng số nhân viên</span>
+                    <strong>@(Model.TotalEmployees?.ToString("N0") ?? "—")</strong>
+                    <small>
+                        @if (Model.IsDatabaseAvailable)
+                        {
+                            <span>Xem danh sách <span aria-hidden="true">→</span></span>
+                        }
+                        else
+                        {
+                            @Model.DataSourceMessage
+                        }
+                    </small>
+                </span>
+            </a>
+            <div class="summary-card system-summary">
+                <span class="summary-icon summary-icon-green">
+                    <svg class="icon"><use href="#icon-database"></use></svg>
+                </span>
+                <span class="summary-copy">
+                    <span>Trạng thái hệ thống</span>
+                    <strong class="status-value @(Model.IsDatabaseAvailable ? "" : "status-error")">
+                        <i></i> @(Model.IsDatabaseAvailable ? "Đang hoạt động" : "Mất kết nối")
+                    </strong>
+                    <small>
+                        @(Model.IsDatabaseAvailable
+                            ? "Đã đọc dữ liệu thành công"
+                            : Model.DataSourceMessage)
+                    </small>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-section technology-section" aria-labelledby="technologyTitle">
+        <div class="section-heading">
+            <div>
+                <span class="section-eyebrow">NỀN TẢNG</span>
+                <h2 id="technologyTitle">Thông tin hệ thống</h2>
+            </div>
+            <a class="section-link" asp-controller="Demo" asp-action="Index">
+                Chi tiết hệ thống <span aria-hidden="true">→</span>
+            </a>
+        </div>
+
+        <div class="technology-grid">
+            <article class="technology-card">
+                <span class="technology-mark mark-mvc">MVC</span>
+                <div>
+                    <h3>ASP.NET Core MVC</h3>
+                    <p>Nền tảng ứng dụng web theo mô hình Model–View–Controller.</p>
+                </div>
+            </article>
+            <article class="technology-card">
+                <span class="technology-mark mark-ef">EF</span>
+                <div>
+                    <h3>Entity Framework Core</h3>
+                    <p>Truy cập và thao tác dữ liệu theo mô hình đối tượng.</p>
+                </div>
+            </article>
+            <article class="technology-card">
+                <span class="technology-mark mark-sql">SQL</span>
+                <div>
+                    <h3>SQL Server</h3>
+                    <p>Cơ sở dữ liệu quan hệ được cấu hình cho ứng dụng.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

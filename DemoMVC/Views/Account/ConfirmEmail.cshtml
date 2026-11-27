@@ -1,0 +1,11 @@
+@{ ViewData["Title"] = "Xác thực email"; var thanhCong = (bool?)ViewData["ThanhCong"] == true; }
+<div class="container crud-page text-center">
+    @if (thanhCong)
+    {
+        <h2>Xác thực email thành công</h2><p>Tài khoản của bạn đã sẵn sàng đăng nhập.</p><a asp-action="Login" class="btn btn-primary">Đăng nhập</a>
+    }
+    else
+    {
+        <h2>Không thể xác thực email</h2><p>@(ViewData["ThongBao"] ?? "Liên kết không hợp lệ hoặc đã hết hạn.")</p><a asp-action="ResendConfirmation" class="btn btn-primary">Gửi lại email xác thực</a>
+    }
+</div>
